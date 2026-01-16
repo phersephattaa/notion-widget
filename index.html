@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* Transparent background and Serif font */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            color: black;
+            font-family: "Times New Roman", Georgia, serif;
+            
+            /* ADJUST FONT SIZE HERE (11px or 12px) */
+            font-size: 12px;
+            
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #text { white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <div id="text">
+        Days until preliminary thesis project report: <span id="count"></span>
+    </div>
+
+    <script>
+        function update() {
+            const target = new Date("May 5, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            
+            document.getElementById("count").innerHTML = days > 0 ? days : (days === 0 ? "Today!" : "Done");
+        }
+        update();
+    </script>
+</body>
+</html>
