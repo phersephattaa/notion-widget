@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="referrer" content="no-referrer">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
     <style>
         /* Transparent background and Serif font */
         body {
             margin: 0;
-            padding: 0;
+            padding: 10px; /* Added padding so text doesn't touch the edge of the Notion block */
             background-color: transparent;
             color: black;
             font-family: "Times New Roman", Georgia, serif;
             
-            /* ADJUST FONT SIZE HERE (11px or 12px) */
+            /* Font size */
             font-size: 12px;
             
+            /* Flexbox for centering */
             display: flex;
             align-items: center;
-            height: 100vh;
+            justify-content: flex-start; /* Aligns text to the left of the block */
+            min-height: 100vh;
             overflow: hidden;
         }
-        #text { white-space: nowrap; }
+
+        #text { 
+            white-space: nowrap; 
+        }
+
+        /* Optional: High-contrast fix if you use Notion Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body { color: white; }
+        }
     </style>
 </head>
 <body>
@@ -30,14 +42,27 @@
 
     <script>
         function update() {
+            // Target Date: May 5, 2026
             const target = new Date("May 5, 2026 00:00:00").getTime();
             const now = new Date().getTime();
             const diff = target - now;
+            
+            // Calculate days remaining
             const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
             
-            document.getElementById("count").innerHTML = days > 0 ? days : (days === 0 ? "Today!" : "Done");
+            const display = document.getElementById("count");
+            if (days > 0) {
+                display.innerHTML = days;
+            } else if (days === 0) {
+                display.innerHTML = "Today!";
+            } else {
+                display.innerHTML = "Done";
+            }
         }
+        // Run immediately
         update();
+        // Update every hour in case the tab stays open
+        setInterval(update, 3600000);
     </script>
 </body>
 </html>
